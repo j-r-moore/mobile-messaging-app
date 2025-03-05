@@ -23,6 +23,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "670c7f69-bf83-4bf3-a98f-9bb2cea20510"
+      }
+    },
+    "owner": "puffer_x"
   }
 }
