@@ -6,6 +6,7 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.0",
     "express": "^4.19.2",
     "sequelize": "^6.37.3",
     "socket.io": "^4.7.5",

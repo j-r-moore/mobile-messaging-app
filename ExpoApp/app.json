@@ -2,13 +2,13 @@
   "expo": {
     "name": "mobile-messaging-app",
     "slug": "mobile-messaging-app",
+    "scheme": "mobilemessagingapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -29,6 +29,16 @@
         "projectId": "670c7f69-bf83-4bf3-a98f-9bb2cea20510"
       }
     },
-    "owner": "puffer_x"
+    "owner": "puffer_x",
+    "plugins": [
+      "expo-router",
+      [
+        "expo-secure-store",
+        {
+          "faceIDPermission": "Allow $(PRODUCT_NAME) to access your Face ID biometric data."
+        }
+      ]
+      
+    ]
   }
 }
