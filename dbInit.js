@@ -15,9 +15,7 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 
 require('./models/users.js')(sequelize, Sequelize.DataTypes);
 require('./models/messages.js')(sequelize, Sequelize.DataTypes);
-require('./models/channels.js')(sequelize, Sequelize.DataTypes);
-require('./models/channel_link.js')(sequelize, Sequelize.DataTypes);
-require('./models/friends.js')(sequelize, Sequelize.DataTypes);
+
 
 const force = process.argv.includes('--force') || process.argv.includes('-f')
 

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Chat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Real-time Chat</h1>
+    <h2>Users</h2>
+    <ul id="users"></ul>
+    <h2>Add your name</h2>
+    <input type="text" id="nameInput" placeholder="Type your name...">
+    <button id="setNameButton">Set Name</button>
+    <h2>Messages</h2>
+    <div id="messages"></div>
+    <input type="text" id="messageInput" placeholder="Type a message...">
+    <button id="sendButton">Send</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
