@@ -104,6 +104,13 @@ io.on('connection', (socket) => {
         const newMessage = await messages.create({ message, name: user.name });
         console.log(`New message: ${newMessage.message} from ${name}`);
         io.emit('message', newMessage.message, name);
+
+        // Generate AI response suggestions
+        generateAiResponse(message, name).then((response) => {
+            console.log('AI response suggestions sent successfully:', response);
+        }).catch((error) => {
+            console.error('Error sending AI response suggestions:', error);
+        });
     });
 
     socket.on('getMessages', async (name) => {
@@ -131,8 +138,64 @@ io.on('connection', (socket) => {
         socket.emit('data', { users: allUsers, messages: allMessages });
     });
 
+    socket.on('sendAiResponse', async (response, sender) => {
+        console.log(`AI response: ${response} from ${sender}`);
+        const user = await users.findOne({ where: { name: sender } });
+        if (!user) {
+            return socket.emit('error', 'User not found');
+        }
+        const newMessage = await messages.create({ message: response, name: user.name });
+        console.log(`New AI message: ${newMessage.message} from ${sender}`);
+        io.emit('message', newMessage.message, sender);
+
+        // Generate AI response suggestions
+        generateAiResponse(response, sender).then((response) => {
+            console.log('AI response suggestions sent successfully:', response);
+        }).catch((error) => {
+            console.error('Error sending AI response suggestions:', error);
+        });
+    });
+
+
 
 });
+
+
+// Function to generate AI response suggestions for a message
+async function generateAiResponse(message, name) {
+    console.log(`Message: ${message} from ${name}`);
+
+    const recentMessages = await messages.findAll({
+        order: [['createdAt', 'DESC']],
+        limit: 10
+    });
+    // Reverse to get chronological order
+    const conversationContext = recentMessages.reverse().map(msg => `Name:${msg.name}:, Message:${msg.message}`).join('\n');
+    // console.log('Conversation context:', conversationContext);
+    // Generate multiple response suggestions
+    const aiPrompt = `${conversationContext}\n\nGenerate 3 different possible responses to the latest message, formatted as a JSON array. You should not ask me for more context, you should just make a response for the user to pick nothing else. ALLWAYS have it set up like this 'response: ' and then the response:`;
+    const aiResponse = await aiRoutes.generateResponse(aiPrompt);
+    
+    try {
+        // Only send response options to the user who received the message (not the sender)
+        // Find the recipient(s) by excluding the sender
+        global.connectedUsers.forEach(connectedUser => {
+            if (connectedUser.name !== name) {
+                const recipientSocket = io.sockets.sockets.get(connectedUser.id);
+                if (recipientSocket) {
+                    recipientSocket.emit('aiSuggestions', {
+                        originalMessage: message,
+                        sender: name,
+                        suggestions: aiResponse.response
+                    });
+                }
+            }
+        });
+    } catch (error) {
+        console.error('Error sending AI suggestions:', error);
+    }
+    return aiResponse.response;
+}
 
 
 

@@ -88,6 +88,40 @@
     background-color: #3a5f8a;
   }
   
+  /* AI suggestions */
+  .ai-suggestions-container {
+    padding: 10px 15px;
+    background-color: #f8f9fa;
+    border-top: 1px solid #ddd;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .suggestions-header {
+    font-size: 14px;
+    color: #333;  /* Darker color for better visibility */
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .suggestion-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    background-color: #e9ecef;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #333;  /* Ensuring text color is dark */
+    font-weight: normal;  /* Making sure text isn't white due to button styling */
+  }
+  
+  .suggestion-btn:hover {
+    background-color: #dde2e6;
+    color: #000;  /* Even darker on hover for emphasis */
+  }
   
   /* User list */
   .users-list {
