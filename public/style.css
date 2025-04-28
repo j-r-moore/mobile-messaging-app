@@ -99,7 +99,7 @@
   
   .suggestions-header {
     font-size: 14px;
-    color: #333;  /* Darker color for better visibility */
+    color: #333; 
     margin-bottom: 10px;
     font-weight: bold;
   }
@@ -114,13 +114,13 @@
     border: 1px solid #dee2e6;
     border-radius: 4px;
     cursor: pointer;
-    color: #333;  /* Ensuring text color is dark */
-    font-weight: normal;  /* Making sure text isn't white due to button styling */
+    color: #333;  
+    font-weight: normal;  
   }
   
   .suggestion-btn:hover {
     background-color: #dde2e6;
-    color: #000;  /* Even darker on hover for emphasis */
+    color: #000;
   }
   
   /* User list */
@@ -161,6 +161,66 @@
     display: table;
     clear: both;
   }
+
+  /* Age verification overlay */
+  .age-verification-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.age-verification-form {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+}
+
+.age-verification-form h2 {
+    margin-top: 0;
+    color: #4a76a8;
+}
+
+.age-verification-form p {
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.age-verification-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.age-verification-form button {
+    padding: 12px 24px;
+    font-size: 16px;
+}
+
+.age-verification-error {
+    color: #d32f2f;
+    margin-top: 10px;
+    font-weight: bold;
+    display: none;
+}
+
+.hidden {
+    display: none;
+}
+
+
   
   /* For small screens */
   @media (max-width: 500px) {

@@ -14,7 +14,7 @@ nameButton.addEventListener('click', setName);
 socket.emit('getUsers');
 
 
-
+// Listen for the 'users' event from the server
 socket.on('users', (users) => {
     usersElement.innerHTML = '';
     users.forEach((user) => {
@@ -24,7 +24,7 @@ socket.on('users', (users) => {
     });
 });
 
-
+// When the user clicks the "Set Name" button, emit the 'name' event to the server
 function setName() {
     const name = addName.value.trim();
     if (name !== '') { 
@@ -35,6 +35,7 @@ function setName() {
     }
 }
 
+// When the user presses Enter in the message input, send the message
 function sendMessage() {
     const message = messageInput.value.trim();
     if (message !== '') {
@@ -44,7 +45,8 @@ function sendMessage() {
     }
 }
 
-
+// Listen for incoming messages from the server
+// and display them in the messages element
 socket.on('message', (message, name) => {
     const messageElement = document.createElement('div');
     messageElement.textContent = message + ' - ' + name;
@@ -85,6 +87,8 @@ socket.on('aiSuggestions', (data) => {
         
         if (data.suggestions && data.suggestions.response) {
             // Try to extract suggestions based on the structure
+            // The resonse for doing this is that the AI response can be in different formats at any time
+            // I have tried to midagate this by telling the AI to respond in a specific format but it does not always work
             const responseData = data.suggestions.response;
             
             if (responseData.candidates && responseData.candidates[0] && 

@@ -19,19 +19,19 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html');
 });
 
-//add a test route that takes a string and then asks the AI to generate a response
-app.get(`/test/:prompt`, async (req, res) => {
-    const prompt = req.params.prompt;
-    if (!prompt) {
-        return res.status(400).json({ success: false, message: 'Prompt is required' });
-    }
-    const result = await aiRoutes.generateResponse(prompt);
-    console.log(result.response);
-    res.send(result.response);
-});
+// This is a test route that takes a string and then asks the AI to generate a response
+// app.get(`/test/:prompt`, async (req, res) => {
+//     const prompt = req.params.prompt;
+//     if (!prompt) {
+//         return res.status(400).json({ success: false, message: 'Prompt is required' });
+//     }
+//     const result = await aiRoutes.generateResponse(prompt);
+//     console.log(result.response);
+//     res.send(result.response);
+// });
 
 
-
+// A user connects to the server (user opens the page)
 io.on('connection', (socket) => {
     console.log('A user connected');
     console.log(`Socket ID: ${socket.id}`);
@@ -95,6 +95,7 @@ io.on('connection', (socket) => {
         socket.emit('getMessages', name);
     });
 
+    // A user sends a message
     socket.on('message', async (message, name) => {
         console.log(`Message: ${message} from ${name}`);
         const user = await users.findOne({ where: { name } });
@@ -113,6 +114,7 @@ io.on('connection', (socket) => {
         });
     });
 
+    // A client requests messages
     socket.on('getMessages', async (name) => {
         const user = await users.findOne({ where: { name } });
         if (!user) {
@@ -138,6 +140,7 @@ io.on('connection', (socket) => {
         socket.emit('data', { users: allUsers, messages: allMessages });
     });
 
+    // A user sends a message using a Ai response
     socket.on('sendAiResponse', async (response, sender) => {
         console.log(`AI response: ${response} from ${sender}`);
         const user = await users.findOne({ where: { name: sender } });
@@ -200,7 +203,7 @@ async function generateAiResponse(message, name) {
 
 
 
-
+// Creates the server and listens on the specified port
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
