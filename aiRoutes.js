@@ -8,8 +8,9 @@ const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 // AI response generation function
 const generateResponse = async (prompt) => {
     try {
-        // Here you would typically call your AI API
+        // console.log('Prompt:', prompt);
         const response = await model.generateContent(prompt);
+        // console.log('Response:', response);
         return { success: true, response };
     }
     catch (error) {
